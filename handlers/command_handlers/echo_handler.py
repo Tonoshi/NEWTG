@@ -1,15 +1,14 @@
 from telegram import Update
-from telegram.ext import ContextTypes, MessageHandler, filters
+from telegram.ext import MessageHandler, filters, ContextTypes
 
 from handlers.base_handler import BaseHandler
 
 
 class EchoHandler(BaseHandler):
     @classmethod
-    def register(cls, app):
-        echo_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, cls.callback)
-        app.add_handler(echo_handler)
+    def register(cls, app) -> None:
+        app.add_handler(MessageHandler(filters.Regex(r"^echo\s+(.*)$"), cls.callback))
 
     @staticmethod
-    async def callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    async def callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         await update.message.reply_text(update.message.text)
