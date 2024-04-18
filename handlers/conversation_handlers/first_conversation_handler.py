@@ -79,3 +79,4 @@ class FirstConversationHandler(BaseHandler):
         await query.edit_message_text(text=f"Ви {gender}. Ваш вік - {age} років.")
 
         return AGE
+    #1
